@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Click to Bloom 🌹</title>
+<title>Blooming Rose 🌹</title>
 
 <style>
 body {
@@ -19,10 +19,12 @@ body {
     text-align: center;
 }
 
+/* Flower */
 .flower {
     position: relative;
     width: 200px;
     height: 200px;
+    margin: auto;
     cursor: pointer;
 }
 
@@ -47,24 +49,41 @@ body {
     top: 30px;
     left: 60px;
     transform-origin: bottom center;
-    transition: transform 2s ease, opacity 2s ease;
+    transition: transform 2.5s ease;
 }
 
-/* Closed bud */
+/* Closed state */
 .closed .petal {
     transform: scale(0.3) rotate(0deg);
 }
 
-/* Open rose */
+/* Open state */
 .open .p1 { transform: scale(1) rotate(-45deg); }
 .open .p2 { transform: scale(1) rotate(45deg); }
 .open .p3 { transform: scale(1) rotate(-75deg); }
 .open .p4 { transform: scale(1) rotate(75deg); }
 
-.message {
-    margin-top: 20px;
-    font-size: 22px;
+/* Arrow */
+.arrow {
+    font-size: 40px;
+    margin-top: 10px;
+    animation: bounce 1s infinite;
+    transition: opacity 0.5s ease;
+}
+
+/* Click text */
+.click-text {
+    font-size: 20px;
     color: #b3003c;
+    margin-top: 5px;
+    transition: opacity 0.5s ease;
+}
+
+/* Happy Valentines text */
+.valentine {
+    font-size: 28px;
+    color: #b3003c;
+    margin-top: 20px;
     opacity: 0;
     transition: opacity 2s ease;
 }
@@ -72,12 +91,23 @@ body {
 .show {
     opacity: 1;
 }
+
+.hide {
+    opacity: 0;
+}
+
+/* Arrow bounce animation */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
+
     <div id="flower" class="flower closed">
         <div class="stem"></div>
         <div class="petal p1"></div>
@@ -86,20 +116,33 @@ body {
         <div class="petal p4"></div>
     </div>
 
-    <div id="msg" class="message">It bloomed just for you 🌹</div>
+    <div id="arrow" class="arrow">⬇</div>
+    <div id="clickText" class="click-text">Click Me</div>
+
+    <div id="valentineText" class="valentine">Happy Valentines ❤️</div>
+
 </div>
 
 <script>
 const flower = document.getElementById("flower");
-const message = document.getElementById("msg");
+const arrow = document.getElementById("arrow");
+const clickText = document.getElementById("clickText");
+const valentineText = document.getElementById("valentineText");
 
 flower.addEventListener("click", () => {
+
+    // Bloom
     flower.classList.remove("closed");
     flower.classList.add("open");
 
+    // Hide arrow + click text
+    arrow.classList.add("hide");
+    clickText.classList.add("hide");
+
+    // Show valentine message after bloom
     setTimeout(() => {
-        message.classList.add("show");
-    }, 2000);
+        valentineText.classList.add("show");
+    }, 2500);
 });
 </script>
 
