@@ -12,81 +12,121 @@ body {
     align-items: center;
     background: linear-gradient(to bottom, #fff0f5, #ffd6e8);
     font-family: Arial, sans-serif;
+    overflow: hidden;
 }
+
 .container {
     text-align: center;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px; 
+    justify-content: center; 
 }
+
 .flower {
     position: relative;
     width: 200px;
-    height: 200px;
-    margin: auto;
+    height: 250px; 
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 10;
 }
+
 .stem {
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 8px;
-    height: 120px;
-    background: green;
-    transform: translateX(-50%);
+    bottom: 20px;
+    width: 10px;
+    height: 150px;
+    background: linear-gradient(to right, #228b22, #32cd32);
+    border-radius: 5px;
+    z-index: 1;
 }
+
 .petal {
     position: absolute;
-    width: 80px;
-    height: 120px;
-    background: crimson;
+    background: radial-gradient(circle at 30% 30%, #ff1a1a, #8b0000);
     border-radius: 50%;
-    top: 30px;
-    left: 60px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    transition: all 3s ease-in-out;
     transform-origin: bottom center;
-    transition: transform 2.5s ease;
+    z-index: 2;
+    bottom: 160px; 
 }
+
 .closed .petal {
-    transform: scale(0.3) rotate(0deg);
+    width: 50px;
+    height: 70px;
+    border-radius: 50px 50px 50px 50px;
+    background: #8b0000;
 }
-.open .p1 { transform: scale(1) rotate(-45deg); }
-.open .p2 { transform: scale(1) rotate(45deg); }
-.open .p3 { transform: scale(1) rotate(-75deg); }
-.open .p4 { transform: scale(1) rotate(75deg); }
+
+.closed .p1 { transform: translate(0, 0) scale(1) rotate(0deg); z-index: 5; }
+.closed .p2 { transform: translate(0, 0) scale(0.9) rotate(0deg); z-index: 4; }
+.closed .p3 { transform: translate(0, 0) scale(0.8) rotate(0deg); z-index: 3; }
+.closed .p4 { transform: translate(0, 0) scale(0.8) rotate(0deg); z-index: 3; }
+
+.open .petal {
+    width: 80px;
+    height: 100px;
+}
+
+.open .p1 { transform: translate(-30px, 0) rotate(-45deg); z-index: 2; }
+.open .p2 { transform: translate(30px, 0) rotate(45deg); z-index: 2; }
+.open .p3 { transform: translate(-15px, -10px) rotate(-25deg) scale(0.9); z-index: 3; }
+.open .p4 { transform: translate(15px, -10px) rotate(25deg) scale(0.9); z-index: 3; }
+
+.instructions {
+    margin-top: -30px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
 .arrow {
     font-size: 40px;
-    margin-top: 10px;
-    animation: bounce 1s infinite;
-    transition: opacity 0.5s ease;
-    cursor: default;
+    color: #444;
+    animation: bounce 1.5s infinite;
 }
+
 .click-text {
-    font-size: 20px;
+    font-size: 18px;
     color: #b3003c;
     margin-top: 5px;
-    transition: opacity 0.5s ease;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
+
 .valentine {
-    font-size: 28px;
-    color: #b3003c;
-    margin-top: 20px;
-    opacity: 0;
-    transition: opacity 2s ease;
-    font-weight: bold;
     position: absolute;
-    width: 100%;
-    left: 0;
+    bottom: 20px;
+    font-size: 32px;
+    color: #d60045;
+    font-weight: bold;
+    font-family: 'Brush Script MT', cursive;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 2s ease;
 }
-.show {
+
+.show-message {
     opacity: 1;
+    transform: translateY(0);
 }
-.hide {
+
+.fade-out {
     opacity: 0;
     pointer-events: none;
 }
+
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-10px); }
 }
 </style>
 </head>
@@ -101,9 +141,9 @@ body {
         <div class="petal p4"></div>
     </div>
 
-    <div id="instructions">
-        <div id="arrow" class="arrow">⬆</div>
-        <div id="clickText" class="click-text">Click Me</div>
+    <div id="instructions" class="instructions">
+        <div class="arrow">⬆</div>
+        <div class="click-text">Click Me</div>
     </div>
 
     <div id="valentineText" class="valentine">Happy Valentines ❤️</div>
@@ -115,14 +155,16 @@ const instructions = document.getElementById("instructions");
 const valentineText = document.getElementById("valentineText");
 
 flower.addEventListener("click", () => {
-    flower.classList.remove("closed");
-    flower.classList.add("open");
+    if (flower.classList.contains("closed")) {
+        flower.classList.remove("closed");
+        flower.classList.add("open");
 
-    instructions.classList.add("hide");
+        instructions.classList.add("fade-out");
 
-    setTimeout(() => {
-        valentineText.classList.add("show");
-    }, 2500);
+        setTimeout(() => {
+            valentineText.classList.add("show-message");
+        }, 3000);
+    }
 });
 </script>
 
