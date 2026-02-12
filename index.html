@@ -10,7 +10,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: radial-gradient(circle at center, #1a0b0f, #2b0f14);
+        background: radial-gradient(circle at center, #1a0509, #000000);
         font-family: 'Brush Script MT', cursive;
         overflow: hidden;
     }
@@ -20,114 +20,113 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 600px;
+        height: 700px;
         width: 100%;
         justify-content: center;
     }
 
     .flower-wrapper {
         position: relative;
-        width: 300px;
-        height: 450px;
+        width: 350px;
+        height: 500px;
         cursor: pointer;
         z-index: 10;
+        margin-bottom: 20px;
     }
 
-    #rose-svg {
+    #peony-svg {
         width: 100%;
         height: 100%;
         overflow: visible;
+        filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
     }
 
+    /* --- Animations --- */
     .petal {
-        transform-origin: 150px 100px;
-        transition: transform 3s ease-in-out, opacity 2s ease;
-        opacity: 1;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        transform-origin: 175px 150px;
+        transition: transform 3.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 2s ease;
+        opacity: 0.9;
+        mix-blend-mode: hard-light;
     }
 
-    .sepal {
-        transform-origin: 150px 130px;
-        transition: transform 2.5s ease-in-out;
+    .stem-group {
+        transform-origin: 175px 300px;
+        transition: transform 4s ease-in-out;
     }
 
-    /* Closed State - Bigger Bud */
+    /* --- Closed State (Tight Ball) --- */
     .closed .petal {
-        transform: scale(0.35) rotate(0deg) translateY(0);
-        opacity: 1;
+        transform: scale(0.25) rotate(0deg) translate(0, 0);
     }
     
-    /* Adjust sepals to fit the bigger bud */
-    .closed .sepal-left { transform: rotate(-20deg) scale(1.2); }
-    .closed .sepal-right { transform: rotate(20deg) scale(1.2); }
-    .closed .sepal-center { transform: scale(1.2); }
+    .closed .p-inner { opacity: 1; }
+    .closed .p-outer { opacity: 0; }
 
-    /* Open State - Wider Spacing */
-    .open .petal { opacity: 1; }
+    /* --- Open State (Explosion) --- */
+    .open .p1 { transform: rotate(0deg) translate(0, 60px) scale(1); }
+    .open .p2 { transform: rotate(72deg) translate(0, 60px) scale(1); }
+    .open .p3 { transform: rotate(144deg) translate(0, 60px) scale(1); }
+    .open .p4 { transform: rotate(216deg) translate(0, 60px) scale(1); }
+    .open .p5 { transform: rotate(288deg) translate(0, 60px) scale(1); }
 
-    /* Outer Petals - Spaced out wide */
-    .open .p1 { transform: translate(-60px, 20px) rotate(-35deg) scale(1); transition-delay: 0.1s; }
-    .open .p2 { transform: translate(60px, 20px) rotate(35deg) scale(1); transition-delay: 0.2s; }
-    .open .p3 { transform: translate(0, 50px) scale(1); transition-delay: 0.3s; }
-    
-    /* Mid Petals - Moderate spacing */
-    .open .p4 { transform: translate(-35px, -15px) rotate(-20deg) scale(0.95); transition-delay: 0.4s; }
-    .open .p5 { transform: translate(35px, -15px) rotate(20deg) scale(0.95); transition-delay: 0.5s; }
-    .open .p6 { transform: translate(0, 20px) scale(0.9); transition-delay: 0.6s; }
+    .open .p6 { transform: rotate(36deg) translate(0, 40px) scale(0.9); }
+    .open .p7 { transform: rotate(108deg) translate(0, 40px) scale(0.9); }
+    .open .p8 { transform: rotate(180deg) translate(0, 40px) scale(0.9); }
+    .open .p9 { transform: rotate(252deg) translate(0, 40px) scale(0.9); }
+    .open .p10 { transform: rotate(324deg) translate(0, 40px) scale(0.9); }
 
-    /* Inner Petals - Core opening */
-    .open .p7 { transform: translate(-15px, -10px) rotate(-10deg) scale(0.8); transition-delay: 0.8s; }
-    .open .p8 { transform: translate(15px, -10px) rotate(10deg) scale(0.8); transition-delay: 0.9s; }
-    
-    /* Core Bud */
-    .open .p9 { transform: translate(0, -5px) scale(0.6); transition-delay: 1.2s; }
+    .open .p11 { transform: rotate(10deg) translate(0, 15px) scale(0.7); }
+    .open .p12 { transform: rotate(130deg) translate(0, 15px) scale(0.7); }
+    .open .p13 { transform: rotate(250deg) translate(0, 15px) scale(0.7); }
 
-    /* Sepals Opening */
-    .open .sepal-left { transform: rotate(-60deg) translateY(30px); }
-    .open .sepal-right { transform: rotate(60deg) translateY(30px); }
-    .open .sepal-center { transform: translateY(40px) scaleY(0.5); }
+    .open .petal { opacity: 0.95; }
 
+    /* --- UI Elements --- */
     .instructions {
-        margin-top: -50px;
-        text-align: center;
+        position: absolute;
+        bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         transition: opacity 1s ease;
         z-index: 20;
     }
 
     .arrow {
         font-size: 40px;
-        color: #ff6680;
+        color: #ffccdd;
         animation: bounce 1.5s infinite;
-        text-shadow: 0 0 10px #ff0040;
+        text-shadow: 0 0 10px #ff6699;
     }
 
     .click-text {
-        font-size: 24px;
-        color: #ff99aa;
-        margin-top: 5px;
+        font-size: 18px;
+        color: #ffccdd;
         font-family: Arial, sans-serif;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        letter-spacing: 3px;
+        font-weight: bold;
     }
 
     .valentine {
         position: absolute;
-        bottom: 40px;
+        bottom: 30px; /* Positioned clear of the stem */
         width: 100%;
         text-align: center;
-        font-size: 50px;
-        background: linear-gradient(to right, #ff0040, #ff6680);
+        font-size: 48px;
+        background: linear-gradient(to right, #ff6699, #ffccdd);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        filter: drop-shadow(0 0 10px rgba(255, 0, 64, 0.5));
+        filter: drop-shadow(0 0 15px rgba(255, 102, 153, 0.6));
         opacity: 0;
-        transform: scale(0.8);
-        transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform: translateY(30px);
+        transition: all 2.5s ease 1s;
+        z-index: 15;
     }
 
     .show-msg {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
     }
 
     .fade-out {
@@ -145,60 +144,63 @@
 
 <div class="container">
     <div class="flower-wrapper" id="flowerWrapper">
-        <svg id="rose-svg" class="closed" viewBox="0 0 300 500">
+        <svg id="peony-svg" class="closed" viewBox="0 0 350 500">
             <defs>
                 <linearGradient id="stemGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#0f3d0f;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#2e8b57;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#0f3d0f;stop-opacity:1" />
+                    <stop offset="0%" style="stop-color:#142900;stop-opacity:1" />
+                    <stop offset="40%" style="stop-color:#3d7a00;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#142900;stop-opacity:1" />
                 </linearGradient>
-                <radialGradient id="petalGradient" cx="50%" cy="80%" r="80%">
-                    <stop offset="0%" style="stop-color:#330000;stop-opacity:1" />
-                    <stop offset="40%" style="stop-color:#990033;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#ff1a1a;stop-opacity:1" />
+
+                <radialGradient id="petalGradient" cx="50%" cy="30%" r="80%">
+                    <stop offset="0%" style="stop-color:#ffe6f2;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#ff66b2;stop-opacity:1" />
+                    <stop offset="90%" style="stop-color:#cc0066;stop-opacity:1" />
                 </radialGradient>
-                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-                    <feOffset dx="1" dy="1" result="offsetblur"/>
-                    <feComponentTransfer>
-                        <feFuncA type="linear" slope="0.3"/>
-                    </feComponentTransfer>
-                    <feMerge> 
-                        <feMergeNode in="offsetblur"/>
-                        <feMergeNode in="SourceGraphic"/> 
+
+                <radialGradient id="yellowCenterGradient" cx="50%" cy="50%" r="60%">
+                    <stop offset="0%" style="stop-color:#ffeb3b;stop-opacity:0.9" />
+                    <stop offset="100%" style="stop-color:#f57f17;stop-opacity:0.95" />
+                </radialGradient>
+
+                <radialGradient id="darkerYellowCoreGradient" cx="50%" cy="50%" r="60%">
+                    <stop offset="0%" style="stop-color:#ffb300;stop-opacity:0.9" />
+                    <stop offset="100%" style="stop-color:#e65100;stop-opacity:0.95" />
+                </radialGradient>
+
+                <filter id="softShadow">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+                    <feOffset dx="1" dy="1" result="offsetblur" />
+                    <feFlood flood-color="#5a0028" flood-opacity="0.3" />
+                    <feComposite in2="offsetblur" operator="in" />
+                    <feMerge>
+                        <feMergeNode />
+                        <feMergeNode in="SourceGraphic" />
                     </feMerge>
                 </filter>
             </defs>
 
-            <path d="M145 130 Q 155 300 145 500" stroke="url(#stemGradient)" stroke-width="12" fill="none" />
+            <path class="stem-group" d="M170 150 Q 160 300 170 500 L 180 500 Q 170 300 180 150 Z" fill="url(#stemGradient)" />
             
-            <path d="M148 250 L 160 240 L 149 260 Z" fill="#1a4d1a"/>
-            <path d="M146 350 L 130 340 L 145 360 Z" fill="#1a4d1a"/>
+            <path class="stem-group" d="M175 350 Q 100 300 80 250 Q 120 280 175 330" fill="#3d7a00" />
+            <path class="stem-group" d="M175 400 Q 250 350 300 300 Q 240 320 175 380" fill="#3d7a00" />
 
-            <g transform="translate(145, 280) rotate(-30)">
-                <path d="M0 0 Q -30 -10 -50 0 Q -30 10 0 0" fill="#2e8b57" stroke="#1a4d1a"/>
-            </g>
-            <g transform="translate(150, 340) rotate(30)">
-                <path d="M0 0 Q 30 -15 60 0 Q 30 15 0 0" fill="#2e8b57" stroke="#1a4d1a"/>
-            </g>
+            <g id="petals" filter="url(#softShadow)">
+                <circle class="petal p-inner p11" cx="175" cy="150" r="60" fill="url(#darkerYellowCoreGradient)" />
+                <circle class="petal p-inner p12" cx="175" cy="150" r="60" fill="url(#yellowCenterGradient)" />
+                <circle class="petal p-inner p13" cx="175" cy="150" r="60" fill="url(#yellowCenterGradient)" />
 
-            <path class="sepal sepal-left" d="M150 130 Q 130 180 110 130 Q 130 80 150 130" fill="#2e8b57" />
-            <path class="sepal sepal-right" d="M150 130 Q 170 180 190 130 Q 170 80 150 130" fill="#2e8b57" />
-            <path class="sepal sepal-center" d="M150 130 Q 150 200 150 220 L 140 130 Z" fill="#226622" />
+                <path class="petal p-outer p6" d="M175 150 C 135 110, 135 190, 175 230 C 215 190, 215 110, 175 150" fill="url(#petalGradient)" />
+                <path class="petal p-outer p7" d="M175 150 C 135 110, 135 190, 175 230 C 215 190, 215 110, 175 150" fill="url(#petalGradient)" />
+                <path class="petal p-outer p8" d="M175 150 C 135 110, 135 190, 175 230 C 215 190, 215 110, 175 150" fill="url(#petalGradient)" />
+                <path class="petal p-outer p9" d="M175 150 C 135 110, 135 190, 175 230 C 215 190, 215 110, 175 150" fill="url(#petalGradient)" />
+                <path class="petal p-outer p10" d="M175 150 C 135 110, 135 190, 175 230 C 215 190, 215 110, 175 150" fill="url(#petalGradient)" />
 
-            <g id="petals">
-                <path class="petal p1 petal-layer-1" d="M150 100 C 100 50, 80 150, 150 180 C 220 150, 200 50, 150 100" fill="url(#petalGradient)" filter="url(#shadow)" />
-                <path class="petal p2 petal-layer-1" d="M150 100 C 100 50, 80 150, 150 180 C 220 150, 200 50, 150 100" fill="url(#petalGradient)" filter="url(#shadow)" />
-                <path class="petal p3 petal-layer-1" d="M150 100 C 90 60, 90 160, 150 190 C 210 160, 210 60, 150 100" fill="url(#petalGradient)" filter="url(#shadow)" />
-
-                <path class="petal p4" d="M150 100 C 110 70, 100 140, 150 170 C 200 140, 190 70, 150 100" fill="url(#petalGradient)" />
-                <path class="petal p5" d="M150 100 C 110 70, 100 140, 150 170 C 200 140, 190 70, 150 100" fill="url(#petalGradient)" />
-                <path class="petal p6" d="M150 100 C 120 80, 120 150, 150 170 C 180 150, 180 80, 150 100" fill="url(#petalGradient)" />
-
-                <path class="petal p7" d="M150 100 C 130 80, 130 130, 150 150 C 170 130, 170 80, 150 100" fill="#a30029" />
-                <path class="petal p8" d="M150 100 C 130 80, 130 130, 150 150 C 170 130, 170 80, 150 100" fill="#b3002d" />
-                
-                <circle class="petal p9" cx="150" cy="110" r="15" fill="#800020" />
+                <path class="petal p-outer p1" d="M175 150 C 125 90, 125 210, 175 250 C 225 210, 225 90, 175 150" fill="url(#petalGradient)" />
+                <path class="petal p-outer p2" d="M175 150 C 125 90, 125 210, 175 250 C 225 210, 225 90, 175 150" fill="url(#petalGradient)" />
+                <path class="petal p-outer p3" d="M175 150 C 125 90, 125 210, 175 250 C 225 210, 225 90, 175 150" fill="url(#petalGradient)" />
+                <path class="petal p-outer p4" d="M175 150 C 125 90, 125 210, 175 250 C 225 210, 225 90, 175 150" fill="url(#petalGradient)" />
+                <path class="petal p-outer p5" d="M175 150 C 125 90, 125 210, 175 250 C 225 210, 225 90, 175 150" fill="url(#petalGradient)" />
             </g>
         </svg>
     </div>
@@ -213,23 +215,23 @@
 
 <script>
     const wrapper = document.getElementById("flowerWrapper");
-    const roseSvg = document.getElementById("rose-svg");
+    const peonySvg = document.getElementById("peony-svg");
     const instructions = document.getElementById("instructions");
     const valentineText = document.getElementById("valentineText");
 
     wrapper.addEventListener("click", () => {
-        if (roseSvg.classList.contains("closed")) {
-            // Open the flower
-            roseSvg.classList.remove("closed");
-            roseSvg.classList.add("open");
+        if (peonySvg.classList.contains("closed")) {
+            // Bloom
+            peonySvg.classList.remove("closed");
+            peonySvg.classList.add("open");
 
-            // Hide instructions
+            // Hide UI
             instructions.classList.add("fade-out");
 
-            // Show message
+            // Show Message
             setTimeout(() => {
                 valentineText.classList.add("show-msg");
-            }, 3000);
+            }, 3500);
         }
     });
 </script>
