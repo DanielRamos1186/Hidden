@@ -11,8 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #fff0f5, #ffe6f0);
-    overflow: hidden;
+    background: linear-gradient(to bottom, #fff0f5, #ffd6e8);
     font-family: Arial, sans-serif;
 }
 
@@ -20,29 +19,51 @@ body {
     text-align: center;
 }
 
-svg {
-    width: 250px;
+.flower {
+    position: relative;
+    width: 200px;
+    height: 200px;
     cursor: pointer;
 }
 
+/* Stem */
+.stem {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 8px;
+    height: 120px;
+    background: green;
+    transform: translateX(-50%);
+}
+
+/* Petals */
 .petal {
-    transform-origin: center;
+    position: absolute;
+    width: 80px;
+    height: 120px;
+    background: crimson;
+    border-radius: 50%;
+    top: 30px;
+    left: 60px;
+    transform-origin: bottom center;
     transition: transform 2s ease, opacity 2s ease;
 }
 
-.closed .p1 { transform: rotate(0deg); }
-.closed .p2 { transform: rotate(0deg); }
-.closed .p3 { transform: rotate(0deg); }
-.closed .p4 { transform: rotate(0deg); }
+/* Closed bud */
+.closed .petal {
+    transform: scale(0.3) rotate(0deg);
+}
 
-.open .p1 { transform: rotate(-40deg); }
-.open .p2 { transform: rotate(40deg); }
-.open .p3 { transform: rotate(-70deg); }
-.open .p4 { transform: rotate(70deg); }
+/* Open rose */
+.open .p1 { transform: scale(1) rotate(-45deg); }
+.open .p2 { transform: scale(1) rotate(45deg); }
+.open .p3 { transform: scale(1) rotate(-75deg); }
+.open .p4 { transform: scale(1) rotate(75deg); }
 
 .message {
     margin-top: 20px;
-    font-size: 24px;
+    font-size: 22px;
     color: #b3003c;
     opacity: 0;
     transition: opacity 2s ease;
@@ -57,28 +78,25 @@ svg {
 <body>
 
 <div class="container">
-    <svg id="rose" class="closed" viewBox="0 0 200 200">
-        <!-- Stem -->
-        <rect x="95" y="100" width="10" height="80" fill="green"/>
-        
-        <!-- Petals -->
-        <ellipse class="petal p1" cx="100" cy="80" rx="20" ry="40" fill="#d4004c"/>
-        <ellipse class="petal p2" cx="100" cy="80" rx="20" ry="40" fill="#e6005c"/>
-        <ellipse class="petal p3" cx="100" cy="80" rx="20" ry="40" fill="#cc0052"/>
-        <ellipse class="petal p4" cx="100" cy="80" rx="20" ry="40" fill="#ff1a75"/>
-    </svg>
+    <div id="flower" class="flower closed">
+        <div class="stem"></div>
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+    </div>
 
-    <div id="msg" class="message">It bloomed for you 🌹</div>
+    <div id="msg" class="message">It bloomed just for you 🌹</div>
 </div>
 
 <script>
-const rose = document.getElementById("rose");
+const flower = document.getElementById("flower");
 const message = document.getElementById("msg");
 
-rose.addEventListener("click", () => {
-    rose.classList.remove("closed");
-    rose.classList.add("open");
-    
+flower.addEventListener("click", () => {
+    flower.classList.remove("closed");
+    flower.classList.add("open");
+
     setTimeout(() => {
         message.classList.add("show");
     }, 2000);
