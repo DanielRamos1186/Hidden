@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Blooming Rose 🌹</title>
+
 <style>
 body {
     margin: 0;
@@ -10,161 +11,135 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #fff0f5, #ffd6e8);
+    background: radial-gradient(circle at center, #ffe6f0, #ffccd9);
     font-family: Arial, sans-serif;
-    overflow: hidden;
 }
 
 .container {
     text-align: center;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 400px; 
-    justify-content: center; 
 }
 
+/* Flower Container */
 .flower {
     position: relative;
-    width: 200px;
-    height: 250px; 
+    width: 300px;
+    height: 300px;
+    margin: auto;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
 }
 
+/* Stem */
 .stem {
     position: absolute;
-    bottom: 20px;
+    bottom: 0;
+    left: 50%;
     width: 10px;
-    height: 150px;
-    background: linear-gradient(to right, #228b22, #32cd32);
-    border-radius: 5px;
-    z-index: 1;
+    height: 160px;
+    background: linear-gradient(to bottom, #2e8b57, #1f5e3a);
+    transform: translateX(-50%);
 }
 
+/* Petals */
 .petal {
     position: absolute;
-    background: radial-gradient(circle at 30% 30%, #ff1a1a, #8b0000);
-    border-radius: 50%;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    transition: all 3s ease-in-out;
+    width: 120px;
+    height: 150px;
+    background: radial-gradient(circle at 30% 30%, #ff4d6d, #b3003c);
+    border-radius: 60% 60% 50% 50%;
+    top: 60px;
+    left: 90px;
     transform-origin: bottom center;
-    z-index: 2;
-    bottom: 160px; 
+    transition: transform 3s ease, opacity 1s ease;
 }
 
+/* Closed bud state */
 .closed .petal {
-    width: 50px;
-    height: 70px;
-    border-radius: 50px 50px 50px 50px;
-    background: #8b0000;
+    transform: scale(0.4) rotate(0deg);
 }
 
-.closed .p1 { transform: translate(0, 0) scale(1) rotate(0deg); z-index: 5; }
-.closed .p2 { transform: translate(0, 0) scale(0.9) rotate(0deg); z-index: 4; }
-.closed .p3 { transform: translate(0, 0) scale(0.8) rotate(0deg); z-index: 3; }
-.closed .p4 { transform: translate(0, 0) scale(0.8) rotate(0deg); z-index: 3; }
+/* Bloomed state (layered angles for realism) */
+.open .p1 { transform: scale(1) rotate(-60deg); }
+.open .p2 { transform: scale(1) rotate(60deg); }
+.open .p3 { transform: scale(1) rotate(-30deg); }
+.open .p4 { transform: scale(1) rotate(30deg); }
+.open .p5 { transform: scale(1) rotate(-90deg); }
+.open .p6 { transform: scale(1) rotate(90deg); }
 
-.open .petal {
-    width: 80px;
-    height: 100px;
-}
-
-.open .p1 { transform: translate(-30px, 0) rotate(-45deg); z-index: 2; }
-.open .p2 { transform: translate(30px, 0) rotate(45deg); z-index: 2; }
-.open .p3 { transform: translate(-15px, -10px) rotate(-25deg) scale(0.9); z-index: 3; }
-.open .p4 { transform: translate(15px, -10px) rotate(25deg) scale(0.9); z-index: 3; }
-
-.instructions {
-    margin-top: -30px; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: opacity 1s ease;
-}
-
+/* Arrow pointing upward to bud */
 .arrow {
     font-size: 40px;
-    color: #444;
-    animation: bounce 1.5s infinite;
+    margin-top: -40px;
+    animation: bounce 1s infinite;
+    transition: opacity 0.5s ease;
 }
 
+/* Click text */
 .click-text {
-    font-size: 18px;
-    color: #b3003c;
+    font-size: 22px;
+    color: #990033;
     margin-top: 5px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    transition: opacity 0.5s ease;
 }
 
+/* Valentine text */
 .valentine {
-    position: absolute;
-    bottom: 20px;
-    font-size: 32px;
-    color: #d60045;
-    font-weight: bold;
-    font-family: 'Brush Script MT', cursive;
+    font-size: 30px;
+    color: #b3003c;
+    margin-top: 20px;
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 2s ease;
+    transition: opacity 2s ease;
 }
 
-.show-message {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.fade-out {
-    opacity: 0;
-    pointer-events: none;
-}
+.show { opacity: 1; }
+.hide { opacity: 0; }
 
 @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
+
     <div id="flower" class="flower closed">
         <div class="stem"></div>
         <div class="petal p1"></div>
         <div class="petal p2"></div>
         <div class="petal p3"></div>
         <div class="petal p4"></div>
+        <div class="petal p5"></div>
+        <div class="petal p6"></div>
     </div>
 
-    <div id="instructions" class="instructions">
-        <div class="arrow">⬆</div>
-        <div class="click-text">Click Me</div>
-    </div>
+    <!-- Arrow now pointing UP to the bud -->
+    <div id="arrow" class="arrow">⬆</div>
+    <div id="clickText" class="click-text">Click Me</div>
 
     <div id="valentineText" class="valentine">Happy Valentines ❤️</div>
+
 </div>
 
 <script>
 const flower = document.getElementById("flower");
-const instructions = document.getElementById("instructions");
+const arrow = document.getElementById("arrow");
+const clickText = document.getElementById("clickText");
 const valentineText = document.getElementById("valentineText");
 
 flower.addEventListener("click", () => {
-    if (flower.classList.contains("closed")) {
-        flower.classList.remove("closed");
-        flower.classList.add("open");
 
-        instructions.classList.add("fade-out");
+    flower.classList.remove("closed");
+    flower.classList.add("open");
 
-        setTimeout(() => {
-            valentineText.classList.add("show-message");
-        }, 3000);
-    }
+    arrow.classList.add("hide");
+    clickText.classList.add("hide");
+
+    setTimeout(() => {
+        valentineText.classList.add("show");
+    }, 3000);
 });
 </script>
 
