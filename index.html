@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For You 🌹</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(to bottom, #fff0f5, #ffe6f0);
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #b3003c;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 1s;
+        }
+
+        .rose {
+            width: 250px;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards, float 4s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .petal {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <img class="rose" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Rose_pink_rose.jpg/640px-Rose_pink_rose.jpg" alt="Rose">
+
+    <h1>This rose is for you 🌹</h1>
+
+    <script>
+        function createPetal() {
+            const petal = document.createElement("div");
+            petal.classList.add("petal");
+            petal.innerHTML = "🌹";
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.animationDuration = (3 + Math.random() * 5) + "s";
+            petal.style.fontSize = (20 + Math.random() * 20) + "px";
+            document.body.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, 8000);
+        }
+
+        setInterval(createPetal, 500);
+    </script>
+
+</body>
+</html>
