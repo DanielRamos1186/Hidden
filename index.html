@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Blooming Rose 🌹</title>
+<title>Hidden</title>
 
 <style>
 body {
@@ -21,71 +21,51 @@ body {
 
 /* Flower wrapper */
 .flower {
-    position: relative;
-    width: 300px;
-    height: 350px;
-    margin: auto;
     cursor: pointer;
-}
-
-/* Stem (starts BELOW bud properly) */
-.stem {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 10px;
-    height: 180px;
-    background: linear-gradient(to bottom, #2e8b57, #1f5e3a);
-    transform: translateX(-50%);
-}
-
-/* Petals */
-.petal {
-    position: absolute;
-    width: 130px;
-    height: 160px;
-    background: radial-gradient(circle at 30% 30%, #ff4d6d, #b3003c);
-    border-radius: 60% 60% 50% 50%;
-    top: 40px;   /* Bud clearly above stem */
-    left: 85px;
-    transform-origin: bottom center;
     transition: transform 3s ease;
 }
 
-/* Closed bud */
-.closed .petal {
-    transform: scale(0.35) rotate(0deg);
+/* Petal animation */
+.petal {
+    transform-origin: center;
+    transition: transform 3s ease, opacity 1s ease;
 }
 
-/* Bloomed state */
-.open .p1 { transform: scale(1) rotate(-60deg); }
-.open .p2 { transform: scale(1) rotate(60deg); }
-.open .p3 { transform: scale(1) rotate(-30deg); }
-.open .p4 { transform: scale(1) rotate(30deg); }
-.open .p5 { transform: scale(1) rotate(-90deg); }
-.open .p6 { transform: scale(1) rotate(90deg); }
+/* Closed bud */
+.closed .outer {
+    transform: scale(0.3);
+}
+.closed .inner {
+    transform: scale(0.2);
+}
+
+/* Open rose */
+.open .outer {
+    transform: scale(1);
+}
+.open .inner {
+    transform: scale(1);
+}
 
 /* Arrow */
 .arrow {
     font-size: 40px;
-    margin-top: 40px;  /* Space away from stem */
+    margin-top: 20px;
     animation: bounce 1s infinite;
     transition: opacity 0.5s ease;
 }
 
-/* Click text */
 .click-text {
     font-size: 22px;
     color: #990033;
-    margin-top: 10px;  /* Proper spacing */
+    margin-top: 5px;
     transition: opacity 0.5s ease;
 }
 
-/* Valentine text */
 .valentine {
-    font-size: 30px;
+    font-size: 28px;
     color: #b3003c;
-    margin-top: 30px;
+    margin-top: 10px;
     opacity: 0;
     transition: opacity 2s ease;
 }
@@ -104,22 +84,29 @@ body {
 
 <div class="container">
 
-    <div id="flower" class="flower closed">
-        <div class="stem"></div>
+    <svg id="flower" class="flower closed" width="300" height="400" viewBox="0 0 200 300">
 
-        <!-- Bud positioned clearly above stem -->
-        <div class="petal p1"></div>
-        <div class="petal p2"></div>
-        <div class="petal p3"></div>
-        <div class="petal p4"></div>
-        <div class="petal p5"></div>
-        <div class="petal p6"></div>
-    </div>
+        <!-- Stem -->
+        <rect x="97" y="140" width="6" height="140" fill="#2e8b57"/>
+
+        <!-- Outer petals -->
+        <g class="petal outer" fill="#b3003c">
+            <path d="M100 80 C60 60, 40 120, 100 140 C160 120, 140 60, 100 80Z"/>
+            <path d="M100 90 C70 50, 30 100, 100 150 C170 100, 130 50, 100 90Z"/>
+        </g>
+
+        <!-- Inner petals -->
+        <g class="petal inner" fill="#e6005c">
+            <path d="M100 95 C80 85, 85 120, 100 125 C115 120, 120 85, 100 95Z"/>
+            <path d="M100 100 C90 95, 95 115, 100 118 C105 115, 110 95, 100 100Z"/>
+        </g>
+
+    </svg>
 
     <div id="arrow" class="arrow">⬆</div>
     <div id="clickText" class="click-text">Click Me</div>
 
-    <div id="valentineText" class="valentine">Happy Valentines ❤️</div>
+    <div id="valentineText" class="valentine">Happy Valentines</div>
 
 </div>
 
